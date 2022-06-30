@@ -12,7 +12,7 @@
 	<h2>Used Tools:</h2>
 	<a href="https://es.reactjs.org/" style="margin-left:auto;"><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" title="React v18" height="50" /></a>
 	<a href="https://v5.reactrouter.com/" style="margin-left:auto;"><img src="https://img.shields.io/badge/React_Router-252525?style=for-the-badge&logo=react-router&logoColor=E94949" title="React Router" height="50" /></a>
+	<br>
+	<a href="https://getbootstrap.com/" style="margin-left:auto;"><img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" title="Bootstrap" height="50" /></a>
 	<a href="https://mui.com/" style="margin-left:auto;"><img src="https://img.shields.io/badge/Material%20UI-0A1929?style=for-the-badge&logo=mui&logoColor=007FFF" title="MUI" height="50" /></a>
 </div>
-
-
