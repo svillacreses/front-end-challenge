@@ -1,5 +1,17 @@
-<h1><div style='display:flex;justify-content:center;align-items:center;'>
-	<u style='text-underline-offset: 10px;text-decoration-color: #FF9016;'>Front-End sd</u><a href="https://aimeos.org/" style="margin-left:auto;"><img src="https://krugercorp.com/wp-content/uploads/2022/02/Logo-Kruger_headermobil.gif" alt="Kruger Logo" title="Kruger" height="60" style="background-color: #FF9016;border-radius:15px;padding:10px 0px;" /></a></div></h1>
+<h1>
+	<table width="100%" bgcolor="red" align="center">
+		<tr>
+			<td>
+				<img src="https://img.shields.io/badge/KRUGER-FF9016.svg?style=for-the-badge&label=Front-End%20Challenge&logoColor=white" title="LinkedIn - Santiago Villacreses" height="80" />
+			</td>
+			<td>
+				<a href="https://krugercorp.com/">
+					<img src="https://krugercorp.com/wp-content/uploads/2022/02/Logo-Kruger_headermobil.gif" alt="Kruger Logo" title="Kruger" height="60" style="background-color: #FF9016;border-radius:15px;padding:10px 0px;" />
+				</a>
+			</td>
+		</tr>
+	</table>
+</h1>
 <div style='display:flex;justify-content: space-between;'>
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -8,7 +20,14 @@
 </div>
 <center><a href="https://linkedin.com/in/svillacreses" style="margin-left:auto;"><img src="https://img.shields.io/badge/LinkedIn-0077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white" title="LinkedIn - Santiago Villacreses" height="50" /></a></center>
 [![React][react-shield]][react-url]
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 20" fill="none">
+    <text x="0" y="15" fill="#4285f4">G</text>
+    <text x="12" y="15" fill="#ea4335">o</text>
+    <text x="21" y="15" fill="#fbbc05">o</text>
+    <text x="30" y="15" fill="#4285f4">g</text>
+    <text x="40" y="15" fill="#389738">l</text>
+    <text x="45" y="15" fill="#ea4335">e</text>
+</svg>
 <!-- LINKS & IMAGES -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/svillacreses/front-end-challenge.svg?style=for-the-badge&label=Contribuciones&color=FF9016
