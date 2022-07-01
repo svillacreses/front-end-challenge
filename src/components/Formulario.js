@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useState, useEffect } from "react";
-import { YEAR_IN_MS, COLORS, genUser } from "../utils/Constants";
+import { YEAR_IN_MS, COLORS, genUser, DEFAULT_ROLE } from "../utils/Constants";
 import { TIPOS_DE_VACUNAS } from "../data/bd";
 import { getAllUsers, getLocalUserData } from "../utils/LocalStorageGetters";
 
@@ -52,6 +52,7 @@ export const Formulario = ({
       fvacuna: data?.fvacuna ?? "",
       dosis: data?.dosis ?? 0,
     });
+    // eslint-disable-next-line
   }, []);
 
   const isValidField = (field) => {
@@ -379,7 +380,7 @@ export const Formulario = ({
                       ...formData,
                       usuario: genUser(formData),
                       password: formData.cedula, //La Cédula es la contraseña por defecto
-                      rol: "EMPLEADO", //Rol por defecto
+                      rol: DEFAULT_ROLE, //Rol por defecto
                     },
                   ])
                 );

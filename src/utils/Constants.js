@@ -8,6 +8,8 @@ export const genUser = (form) => {
   return (form.nombres[0] + form.apellidos.split(" ")[0]).toLowerCase();
 };
 
+export const DEFAULT_ROLE = "EMPLEADO";
+
 export const COLORS = {
   primary: "#273943",
   secondary: "#438AAF",

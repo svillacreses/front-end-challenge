@@ -9,7 +9,6 @@ import { COLORS } from "../utils/Constants";
 import { getToken, getLocalUserData } from "../utils/LocalStorageGetters";
 import {
   AppBar,
-  Container,
   Toolbar,
   Box,
   Button,
@@ -74,49 +73,47 @@ export const Home = () => {
     <>
       <Box sx={{ display: "flex", height: "100vh", width: "100%" }}>
         <AppBar>
-          <Container maxWidth="xl">
-            <Toolbar disableGutters>
-              {pages.map((page) => (
-                <Button
-                  fullWidth={false}
-                  key={page.ruta}
-                  onClick={handleCambioDeRuta}
-                  style={{ marginRight: "10px" }}
-                  value={page.ruta}
-                >
-                  {page.nombre}
-                </Button>
-              ))}
-              <Box sx={{ marginLeft: "auto" }}>
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar sx={{ bgcolor: COLORS.gray }}>
-                    {getLocalUserData()?.nombres[0]}
-                    {getLocalUserData()?.apellidos[0]}
-                  </Avatar>
-                </IconButton>
-                <Menu
-                  sx={{ mt: "45px" }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  <MenuItem onClick={logout}>
-                    <Typography textAlign="center">Cerrar Sesión</Typography>
-                  </MenuItem>
-                </Menu>
-              </Box>
-            </Toolbar>
-          </Container>
+          <Toolbar>
+            {pages.map((page) => (
+              <Button
+                fullWidth={false}
+                key={page.ruta}
+                onClick={handleCambioDeRuta}
+                style={{ marginRight: "10px" }}
+                value={page.ruta}
+              >
+                {page.nombre}
+              </Button>
+            ))}
+            <Box sx={{ marginLeft: "auto" }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar sx={{ bgcolor: COLORS.gray }}>
+                  {getLocalUserData()?.nombres[0]}
+                  {getLocalUserData()?.apellidos[0]}
+                </Avatar>
+              </IconButton>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem onClick={logout}>
+                  <Typography textAlign="center">Cerrar Sesión</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          </Toolbar>
         </AppBar>
         <Box component="main" className="full-size centrar" sx={{ p: 3 }}>
           <Switch>

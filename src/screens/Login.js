@@ -50,11 +50,12 @@ export const Login = () => {
       <div
         style={{
           height: "80vh",
-          maxHeight: "500px",
-          width: "50%",
-          minWidth: "350px",
+          maxHeight: "450px",
+          width: "40%",
+          minWidth: "600px",
+          borderRadius: "40px",
         }}
-        className="shadow-lg bg-white rounded p-5 centrar"
+        className="shadow-lg bg-white p-3 centrar"
       >
         <div
           className="full-size centrar"
@@ -62,6 +63,7 @@ export const Login = () => {
             flexDirection: "column",
           }}
         >
+          <Divider flexItem style={{ margin: "0px 0px 15px 0px" }}></Divider>
           <h1>Control de Vacunación</h1>
           <Divider flexItem style={{ margin: "15px 0px 30px 0px" }}></Divider>
           <div
