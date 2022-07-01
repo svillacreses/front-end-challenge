@@ -9,3 +9,9 @@ export const USERS = [
     rol: "ADMIN",
   },
 ];
+export const TIPOS_DE_VACUNAS = [
+  { id: "SP", nombre: "Sputnik" },
+  { id: "AZ", nombre: "Astra Zeneca" },
+  { id: "PF", nombre: "Pfizer" },
+  { id: "JJ", nombre: "Jhonson & Jhonson" },
+];

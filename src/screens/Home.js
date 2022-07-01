@@ -72,7 +72,7 @@ export const Home = () => {
     "" //Para que no renderize nada cuando no haya iniciado sesión
   ) : (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", height: "100vh", width: "100%" }}>
         <AppBar>
           <Container maxWidth="xl">
             <Toolbar disableGutters>
@@ -118,10 +118,13 @@ export const Home = () => {
             </Toolbar>
           </Container>
         </AppBar>
-        <Box component="main" sx={{ p: 3 }}>
-          <Toolbar />
+        <Box component="main" className="full-size centrar" sx={{ p: 3 }}>
           <Switch>
-            <Route path="/empleados" element={<ListadoEmpleados />} />
+            {getLocalUserData()?.rol === "ADMIN" ? (
+              <Route path="/empleados" element={<ListadoEmpleados />} />
+            ) : (
+              <></>
+            )}
             <Route path="*" element={<MisDatos />} />
           </Switch>
         </Box>

@@ -1,5 +1,6 @@
-import { Button, Divider, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Alert, Divider, Portal, Snackbar, TextField } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { COLORS } from "../utils/Constants";
 import { getAllUsers, getToken } from "../utils/LocalStorageGetters";
@@ -8,8 +9,10 @@ export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [capsLock, setCapsLock] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [passWord, setPassword] = useState("");
+  const [loginData, setLoginData] = useState({});
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openFailure, setOpenFailure] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const performLogin = (user, pass) => {
     /*
@@ -31,9 +34,13 @@ export const Login = () => {
     // eslint-disable-next-line
   }, [location]);
 
+  const isValidForm = () => {
+    return loginData.userName !== "" && loginData.passWord !== "";
+  };
+
   return (
     <div
-      className="full-size"
+      className="full-size centrar"
       style={{
         height: "100vh",
         background:
@@ -47,15 +54,15 @@ export const Login = () => {
           width: "50%",
           minWidth: "350px",
         }}
-        className="shadow-lg bg-white rounded p-5"
+        className="shadow-lg bg-white rounded p-5 centrar"
       >
         <div
-          className="full-size"
+          className="full-size centrar"
           style={{
             flexDirection: "column",
           }}
         >
-          <h1>Vacunación de Empleados</h1>
+          <h1>Control de Vacunación</h1>
           <Divider flexItem style={{ margin: "15px 0px 30px 0px" }}></Divider>
           <div
             style={{
@@ -64,86 +71,135 @@ export const Login = () => {
               width: "75%",
             }}
           >
-            <TextField
-              label="Usuario"
-              onKeyDown={(event) => {
-                var key = event.keyCode || event.key;
-                if (key === 13) {
-                  event.preventDefault();
-                  document.getElementById("pass").focus();
-                }
-              }}
-              onChange={(e) => {
-                setUserName(e.target.value);
-              }}
-            />
-
-            <div
-              style={{
-                width: "100%",
-                marginTop: "20px",
-                position: "relative",
-              }}
-            >
-              {capsLock && (
-                <i
-                  className="fa-solid fa-right-from-bracket"
-                  style={{
-                    color: COLORS.primary,
-                    position: "absolute",
-                    marginTop: "5px",
-                    left: "-23px",
-                    fontSize: "17px",
-                    transform: "rotate(-90deg)",
-                  }}
-                />
-              )}
+            <form>
               <TextField
-                id="pass"
-                label="Contraseña"
-                type="password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                error={loginData.userName === ""}
+                label="Usuario"
                 onKeyDown={(event) => {
                   var key = event.keyCode || event.key;
                   if (key === 13) {
                     event.preventDefault();
-                    document.getElementById("iniciar_sesion").click();
-                  }
-                  if (event.getModifierState("CapsLock") !== capsLock) {
-                    setCapsLock(event.getModifierState("CapsLock"));
+                    document.getElementById("pass").focus();
                   }
                 }}
-                onMouseDown={(event) => {
-                  if (event.getModifierState("CapsLock") !== capsLock) {
-                    setCapsLock(event.getModifierState("CapsLock"));
-                  }
+                onChange={(e) => {
+                  setLoginData({ ...loginData, userName: e.target.value });
                 }}
               />
-            </div>
-            <Button
-              id="iniciar_sesion"
-              style={{ marginTop: "25px" }}
-              onClick={() => {
-                const { data, token } = performLogin(userName, passWord) ?? {
-                  data: undefined,
-                  token: undefined,
-                };
-                if (data && token) {
-                  localStorage.setItem("token", token);
-                  localStorage.setItem("user", JSON.stringify(data));
-                  navigate("/home");
-                } else {
-                  console.log("Error, usuario no existente!");
-                }
-              }}
-            >
-              Iniciar Sesión
-            </Button>
+              <div
+                style={{
+                  width: "100%",
+                  marginTop: "20px",
+                  position: "relative",
+                }}
+              >
+                {capsLock && (
+                  <i
+                    className="fa-solid fa-right-from-bracket"
+                    style={{
+                      color: COLORS.primary,
+                      position: "absolute",
+                      marginTop: "20px",
+                      left: "-23px",
+                      fontSize: "17px",
+                      transform: "rotate(-90deg)",
+                    }}
+                  />
+                )}
+                <TextField
+                  id="pass"
+                  error={loginData.passWord === ""}
+                  label="Contraseña"
+                  type="password"
+                  onChange={(e) => {
+                    setLoginData({ ...loginData, passWord: e.target.value });
+                  }}
+                  onKeyDown={(event) => {
+                    var key = event.keyCode || event.key;
+                    if (key === 13) {
+                      event.preventDefault();
+                      document.getElementById("iniciar_sesion").click();
+                    }
+                    if (event.getModifierState("CapsLock") !== capsLock) {
+                      setCapsLock(event.getModifierState("CapsLock"));
+                    }
+                  }}
+                  onMouseDown={(event) => {
+                    if (event.getModifierState("CapsLock") !== capsLock) {
+                      setCapsLock(event.getModifierState("CapsLock"));
+                    }
+                  }}
+                />
+              </div>
+              <LoadingButton
+                fullWidth
+                variant="contained"
+                loading={isLoading}
+                id="iniciar_sesion"
+                disabled={!isValidForm()}
+                style={{ marginTop: "25px" }}
+                onClick={() => {
+                  setIsLoading(true);
+                  //Simulamos una pequeña carga
+                  setTimeout(() => {
+                    const { data, token } = performLogin(
+                      loginData.userName,
+                      loginData.passWord
+                    ) ?? {
+                      data: undefined,
+                      token: undefined,
+                    };
+                    if (data && token) {
+                      localStorage.setItem("token", token);
+                      localStorage.setItem("user", JSON.stringify(data));
+                      navigate("/home");
+                    } else {
+                      setOpenFailure(true);
+                      setIsLoading(false);
+                    }
+                  }, 1000);
+                }}
+              >
+                Iniciar Sesión
+              </LoadingButton>
+            </form>
           </div>
         </div>
       </div>
+      <Portal>
+        <Snackbar
+          open={openSuccess}
+          autoHideDuration={5000}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          onClose={() => setOpenSuccess(false)}
+        >
+          <Alert
+            color="secondary"
+            style={{ background: COLORS.primary, color: "white" }}
+            onClose={() => setOpenSuccess(false)}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Inicio Exitoso!
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={openFailure}
+          autoHideDuration={5000}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          onClose={() => setOpenFailure(false)}
+        >
+          <Alert
+            color="info"
+            style={{ background: COLORS.error, color: "white" }}
+            onClose={() => setOpenFailure(false)}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            Usuario / Contraseña Incorrectos!
+          </Alert>
+        </Snackbar>
+      </Portal>
     </div>
   );
 };

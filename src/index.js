@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { themeOptions } from "./utils/Theme.ts";
 import { ThemeProvider } from "@mui/material";
-import { USERS } from "./data/usuarios";
+import { USERS } from "./data/bd";
 
 //Seteamos la lista de usuarios en el Local Storage solo si no existe
 if (localStorage.getItem("userList") === null) {
